@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>山海 | 台灣山產海味 · 在地食材複合料理</title>
+<style>
+  :root {
+    --forest: #1a2f1a;
+    --forest-light: #243624;
+    --forest-dark: #0f1c0f;
+    --salt: #f0f4f8;
+    --amber: #b8860b;
+    --amber-light: #d4a030;
+    --text-dark: #2c2c2c;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    background: var(--salt);
+    color: var(--text-dark);
+    line-height: 1.8;
+  }
+  h1, h2, h3, h4 { font-weight: 300; letter-spacing: 0.05em; }
+  
+  /* ── Nav ── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    background: rgba(26,47,26,0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid rgba(184,134,11,0.3);
+    padding: 0 2rem;
+  }
+  nav .inner {
+    max-width: 1200px; margin:0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+  }
+  nav .logo {
+    font-size: 1.6rem; font-weight: 700; letter-spacing: 0.2em;
+    color: var(--amber);
+  }
+  nav .links { display: flex; gap: 2rem; list-style: none; }
+  nav .links a {
+    color: var(--salt); text-decoration: none;
+    font-size: 0.9rem; letter-spacing: 0.1em;
+    transition: color 0.3s;
+  }
+  nav .links a:hover { color: var(--amber); }
+  
+  /* ── Hero ── */
+  .hero {
+    height: 100vh; min-height: 700px;
+    background: linear-gradient(135deg, #0f1c0f 0%, #1a2f1a 30%, #2a3f2a 100%);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset:0;
+    background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=80') center/cover;
+    opacity: 0.2;
+  }
+  .hero .content { position: relative; z-index:2; padding: 2rem; }
+  .hero h1 {
+    font-size: clamp(3.5rem, 9vw, 6rem);
+    color: var(--salt);
+    letter-spacing: 0.3em;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  }
+  .hero .subtitle {
+    font-size: 1.2rem; color: var(--amber);
+    letter-spacing: 0.25em;
+    margin-bottom: 2rem;
+  }
+  .hero .cta {
+    display: inline-block;
+    padding: 1rem 3rem;
+    border: 2px solid var(--amber);
+    color: var(--amber);
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    font-size: 0.95rem;
+    transition: all 0.4s;
+    font-weight: 500;
+  }
+  .hero .cta:hover {
+    background: var(--amber);
+    color: var(--forest-dark);
+  }
+  
+  /* ── Sections ── */
+  section { padding: 6rem 2rem; }
+  section .container { max-width: 1100px; margin:0 auto; }
+  section h2 {
+    font-size: 2.5rem;
+    color: var(--forest);
+    text-align: center;
+    margin-bottom: 1rem;
+    letter-spacing: 0.15em;
+  }
+  section .section-desc {
+    text-align: center;
+    color: rgba(44,44,44,0.55);
+    max-width: 600px;
+    margin: 0 auto 4rem;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+  }
+  
+  /* ── Philosophy ── */
+  .philosophy-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .philosophy-grid img {
+    width: 100%; border-radius: 6px;
+    border: 3px solid rgba(184,134,11,0.25);
+  }
+  .philosophy-grid .text h3 {
+    font-size: 1.5rem; color: var(--amber);
+    margin-bottom: 1rem;
+  }
+  .philosophy-grid .text p {
+    color: rgba(44,44,44,0.75);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  
+  /* ── Menu ── */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+  }
+  .menu-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .menu-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+  .menu-card img {
+    width: 100%; height: 220px; object-fit: cover;
+  }
+  .menu-card .info {
+    padding: 1.5rem;
+  }
+  .menu-card .info .badge {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    border-radius: 20px;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .badge-mountain { background: #e8f5e9; color: #1a2f1a; }
+  .badge-sea { background: #e3f2fd; color: #1565c0; }
+  .badge-fusion { background: #fff8e1; color: #b8860b; }
+  .menu-card .info h4 {
+    color: var(--forest);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  .menu-card .info p {
+    color: rgba(44,44,44,0.6);
+    font-size: 0.9rem;
+  }
+  .menu-card .info .price {
+    margin-top: 0.8rem;
+    color: var(--amber);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+  
+  /* ── Ingredients ── */
+  .ingredients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    text-align: center;
+  }
+  .ingredient-item {
+    padding: 2rem 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: transform 0.3s;
+  }
+  .ingredient-item:hover { transform: translateY(-3px); }
+  .ingredient-item .icon {
+    font-size: 2.5rem; margin-bottom: 0.5rem;
+  }
+  .ingredient-item h4 {
+    color: var(--forest);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.08em;
+  }
+  .ingredient-item p {
+    color: rgba(44,44,44,0.5);
+    font-size: 0.85rem;
+  }
+  
+  /* ── Gallery ── */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .gallery-grid img {
+    width: 100%; height: 280px;
+    object-fit: cover;
+    border-radius: 6px;
+    transition: opacity 0.3s;
+  }
+  .gallery-grid img:hover { opacity: 0.85; }
+  
+  /* ── Footer ── */
+  footer {
+    background: var(--forest-dark);
+    padding: 4rem 2rem 2rem;
+    text-align: center;
+    border-top: 3px solid var(--amber);
+  }
+  footer .container { max-width: 800px; margin:0 auto; }
+  footer .footer-logo {
+    font-size: 2rem;
+    color: var(--amber);
+    letter-spacing: 0.25em;
+    margin-bottom: 1rem;
+  }
+  footer p {
+    color: rgba(240,244,248,0.5);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+  
+  @media (max-width: 768px) {
+    .philosophy-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    nav .links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    section h2 { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo">山海</div>
+    <ul class="links">
+      <li><a href="#philosophy">我們的理念</a></li>
+      <li><a href="#menu">招牌料理</a></li>
+      <li><a href="#ingredients">在地食材</a></li>
+      <li><a href="#gallery">餐廳實景</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="content">
+    <h1>山海</h1>
+    <p class="subtitle">山產海味 · 台灣在地食材複合料理</p>
+    <a href="#philosophy" class="cta">品味山海</a>
+  </div>
+</section>
+
+<section id="philosophy" style="background:#fff;">
+  <div class="container">
+    <h2>我們的理念</h2>
+    <p class="section-desc">台灣是一座山海交融的島嶼，我們的料理也是如此</p>
+    <div class="philosophy-grid">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Gourmet cuisine">
+      <div class="text">
+        <h3>取之於山海，還之於味蕾</h3>
+        <p>山海餐廳誕生於對台灣土地深深的敬意。我們走訪深山部落，挑選當季野菜、放山雞與山產珍味；也親赴漁港，挑選凌晨進港的最新鮮海獲。</p>
+        <p>我們的廚房是山與海的交會點：阿里山山葵遇上澎湖鮮蚵、南投段木香菇與東港鮪魚共舞。每一道料理都訴說著台灣風土的故事。</p>
+        <p>不追求花俏技法，只專注於讓食材說話。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu" style="background:var(--forest-light);">
+  <div class="container">
+    <h2 style="color:var(--salt);">招牌料理</h2>
+    <p class="section-desc" style="color:rgba(240,244,248,0.55);">山與海的交響，每一口都是台灣味</p>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Gourmet dish">
+        <div class="info">
+          <span class="badge badge-fusion">山海交融</span>
+          <h4>山葵海膽炙燒牛</h4>
+          <p>阿里山新鮮山葵 x 澎湖馬糞海膽，覆於炙燒美國牛小排之上，山海的極致對話。</p>
+          <div class="price">NT$ 1,280</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80" alt="Seafood dish">
+        <div class="info">
+          <span class="badge badge-sea">海味</span>
+          <h4>東港黑鮪魚三重奏</h4>
+          <p>當日現流黑鮪魚，以刺身、微炙、塔塔三種手法演繹，搭配阿里山現磨山葵。</p>
+          <div class="price">NT$ 980</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=600&q=80" alt="Mountain cuisine">
+        <div class="info">
+          <span class="badge badge-mountain">山產</span>
+          <h4>段木香菇放山雞湯</h4>
+          <p>南投國姓鄉段木香菇，搭配台東放山雞，文火慢燉六小時，湯頭清澈回甘。</p>
+          <div class="price">NT$ 680</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=600&q=80" alt="Local ingredients">
+        <div class="info">
+          <span class="badge badge-fusion">山海交融</span>
+          <h4>馬告鹽烤海鱸魚</h4>
+          <p>泰雅族傳統馬告香料醃製，包裹海鹽焗烤，魚肉鮮嫩帶有檸檬胡椒香氣。</p>
+          <div class="price">NT$ 880</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ingredients" style="background:#fff;">
+  <div class="container">
+    <h2>在地食材</h2>
+    <p class="section-desc">從產地到餐桌，我們追尋台灣最純粹的風味</p>
+    <div class="ingredients-grid">
+      <div class="ingredient-item">
+        <div class="icon">🍄</div>
+        <h4>段木香菇</h4>
+        <p>南投國姓</p>
+      </div>
+      <div class="ingredient-item">
+        <div class="icon">🐟</div>
+        <h4>黑鮪魚</h4>
+        <p>屏東東港</p>
+      </div>
+      <div class="ingredient-item">
+        <div class="icon">🐔</div>
+        <h4>放山雞</h4>
+        <p>台東鹿野</p>
+      </div>
+      <div class="ingredient-item">
+        <div class="icon">🦪</div>
+        <h4>鮮蚵</h4>
+        <p>澎湖</p>
+      </div>
+      <div class="ingredient-item">
+        <div class="icon">🌿</div>
+        <h4>馬告</h4>
+        <p>宜蘭大同</p>
+      </div>
+      <div class="ingredient-item">
+        <div class="icon">🍠</div>
+        <h4>樹薯</h4>
+        <p>花蓮光復</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery" style="background:var(--forest-light);">
+  <div class="container">
+    <h2 style="color:var(--salt);">餐廳實景</h2>
+    <p class="section-desc" style="color:rgba(240,244,248,0.55);">在森林綠意中，享用山海的饗宴</p>
+    <div class="gallery-grid">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Restaurant interior">
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80" alt="Dining area">
+      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="Table setting">
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-logo">山海</div>
+    <p>台灣山產海味 · 在地食材複合料理</p>
+    <p style="margin-top:1rem;">© 2024 山海 Mountain & Sea Kitchen. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
